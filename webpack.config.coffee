@@ -14,6 +14,8 @@ module.exports =
   module:
     loaders: [
       { test: /\.coffee$/, loader: 'react-hot!jsx!coffee' }
+      { test: /\.jsx$/, loader: 'jsx?insertPragma=React.DOM&harmony' }
+      { test: /\.js$/, loader: 'jsx?harmony' },
     ]
 
   plugins: [

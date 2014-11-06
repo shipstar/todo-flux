@@ -7,7 +7,8 @@ Form = React.createClass
   mixins: [React.addons.LinkedStateMixin]
 
   getInitialState: ->
-    time: null
+    date: moment().format('M/D/YY')
+    time: moment().format('h:m a')
     description: ""
     carby: false
 
@@ -16,7 +17,8 @@ Form = React.createClass
     e.preventDefault()
 
     @props.onSubmit
-      time: moment()
+      date: moment(@state.date).format('M/D/YY')
+      time: moment(@state.time, 'HH:mm').format('h:m a')
       description: @state.description
       carby: @state.carby
 
@@ -26,8 +28,13 @@ Form = React.createClass
 
     `<form onSubmit={this.onSubmit}>
       <div className='form-group'>
+        <label>Date</label>
+        <input type="date" className="form-control" valueLink={this.linkState('date')} />
+      </div>
+
+      <div className='form-group'>
         <label>Time</label>
-        <input type="datetime" className="form-control" valueLink={this.linkState('time')} />
+        <input type="time" className="form-control" valueLink={this.linkState('time')} />
       </div>
 
       <div className='form-group'>
@@ -51,12 +58,14 @@ module.exports = React.createClass
 
     entries: [
       id: 1
-      time: moment()
+      date: moment().format('M/D/YY')
+      time: moment().format('h:m a')
       description: "3x fun-size Snickers"
       carby: true
     ,
       id: 2
-      time: moment().subtract(6, 'hours')
+      date: moment().subtract(6, 'hours').format('M/D/YY')
+      time: moment().subtract(6, 'hours').format('h:m a')
       description: "Grilled chicken and vegetables"
       carby: false
     ]
@@ -73,7 +82,7 @@ module.exports = React.createClass
       'color': if entry.carby then 'darkred' else 'green'
 
     `<li style={style} key={entry.id}>
-      {entry.time.format('M/D h:mm a')}
+      {entry.date} {entry.time}
       &mdash;
       {entry.description}
       &mdash;
