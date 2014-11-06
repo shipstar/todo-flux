@@ -8,6 +8,10 @@ module.exports = React.createClass
       time: moment()
       description: "3x fun-size Snickers"
       carby: true
+    ,
+      time: moment().subtract(6, 'hours')
+      description: "Grilled chicken and vegetables"
+      carby: false
     ]
 
   addEntry: (e) ->
@@ -15,13 +19,28 @@ module.exports = React.createClass
 
     console.warn 'adding'
 
+  renderEntry: (entry) ->
+
+    style =
+      'color': if entry.carby then 'darkred' else 'green'
+
+    `<li style={style}>
+      {entry.time.format('M/D h:mm a')}
+      &mdash;
+      {entry.description}
+      &mdash;
+      {entry.carby ? 'x' : '√'}
+    </li>`
+
   render: ->
 
     `<div>
       <h1>Carby</h1>
 
+      {this.state.entries.map(this.renderEntry)}
+
       <form onSubmit={this.addEntry}>
-        <div class='form-group'>
+        <div className='form-group'>
           <label>Description</label>
           <input className="form-control" />
         </div>
