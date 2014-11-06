@@ -13,8 +13,7 @@ module.exports =
 
   module:
     loaders: [
-      test: /\.coffee$/
-      loader: 'react-hot!jsx!coffee'
+      { test: /\.coffee$/, loader: 'react-hot!jsx!coffee' }
     ]
 
   plugins: [
