@@ -7,8 +7,8 @@ Form = React.createClass
   mixins: [React.addons.LinkedStateMixin]
 
   getInitialState: ->
-    date: moment().format('M/D/YY')
-    time: moment().format('h:m a')
+    date: moment().format('YYYY-MM-DD')
+    time: moment().format('HH:MM')
     description: ""
     carby: false
 
