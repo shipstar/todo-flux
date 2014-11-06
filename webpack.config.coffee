@@ -2,8 +2,10 @@ webpack = require 'webpack'
 
 module.exports =
 
+  devtool: 'source-map'
+
   entry: [
-    'webpack/hot/dev-server'
+    'webpack/hot/only-dev-server'
     './src/main.coffee'
   ]
 
@@ -20,6 +22,8 @@ module.exports =
 
   plugins: [
     new webpack.HotModuleReplacementPlugin()
+
+    new webpack.NoErrorsPlugin()
   ]
 
   resolve:

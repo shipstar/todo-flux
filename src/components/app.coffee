@@ -13,7 +13,6 @@ Form = React.createClass
     carby: false
 
   onSubmit: (e) ->
-
     e.preventDefault()
 
     @props.onSubmit
@@ -21,6 +20,11 @@ Form = React.createClass
       time: moment(@state.time, 'HH:mm').format('h:m a')
       description: @state.description
       carby: @state.carby
+
+    @replaceState @getInitialState()
+
+  cancel: (e) ->
+    e.preventDefault()
 
     @replaceState @getInitialState()
 
@@ -49,6 +53,7 @@ Form = React.createClass
       </div>
 
       <button type="submit" className="btn btn-default">Add entry</button>
+      or <a href="#" onClick={this.cancel}>cancel</a>
     </form>`
 
 module.exports = React.createClass
@@ -91,10 +96,14 @@ module.exports = React.createClass
 
   render: ->
 
+    sortedEntries = _(@state.entries).sortBy (entry) ->
+      console.warn moment("#{entry.date} #{entry.time}", "M/D/YY h:m a").toString()
+      moment("#{entry.date} #{entry.time}", "M/D/YY h:m a")
+
     `<div>
       <h1>Carby</h1>
 
-      {this.state.entries.map(this.renderEntry)}
+      {sortedEntries.map(this.renderEntry)}
 
       <Form onSubmit={this.addEntry} />
     </div>`
