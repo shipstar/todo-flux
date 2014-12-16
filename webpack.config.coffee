@@ -1,4 +1,5 @@
 webpack = require 'webpack'
+path = require 'path'
 
 module.exports =
 
@@ -6,7 +7,7 @@ module.exports =
 
   entry: [
     'webpack/hot/only-dev-server'
-    './src/main.coffee'
+    'app/components/app.coffee'
   ]
 
   output:
@@ -17,7 +18,10 @@ module.exports =
     loaders: [
       { test: /\.coffee$/, loader: 'react-hot!jsx!coffee' }
       { test: /\.jsx$/, loader: 'jsx?insertPragma=React.DOM&harmony' }
-      { test: /\.js$/, loader: 'jsx?harmony' },
+      { test: /\.js$/, loader: 'jsx?harmony' }
+
+      { test: require.resolve("react"), loader: "expose?React" }
+      { test: require.resolve("underscore"), loader: "expose?underscore" }
     ]
 
   plugins: [
@@ -27,6 +31,9 @@ module.exports =
   ]
 
   resolve:
+    alias:
+      app: path.join(__dirname, 'src')
+
     extensions: [
       ''
       '.js'
