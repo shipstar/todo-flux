@@ -1,5 +1,7 @@
 TodoStore = require 'app/stores/todo-store'
 
+TodoList = require './todo-list'
+
 App = React.createClass
 
   getInitialState: ->
@@ -7,14 +9,9 @@ App = React.createClass
 
   render: ->
 
-    todos = if @state.todos.length
-      @state.todos
-    else
-      "No todos"
-
     `<div>
       <h1>Todo List</h1>
-      {todos}
+      <TodoList todos={this.state.todos} />
     </div>`
 
 React.render `<App />`, document.body
