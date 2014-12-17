@@ -19,15 +19,16 @@ module.exports =
       { test: /\.coffee$/, loader: 'react-hot!jsx!coffee' }
       { test: /\.jsx$/, loader: 'jsx?insertPragma=React.DOM&harmony' }
       { test: /\.js$/, loader: 'jsx?harmony' }
-
-      { test: require.resolve("react"), loader: "expose?React" }
-      { test: require.resolve("underscore"), loader: "expose?underscore" }
     ]
 
   plugins: [
     new webpack.HotModuleReplacementPlugin()
 
     new webpack.NoErrorsPlugin()
+
+    new webpack.ProvidePlugin
+      _: 'underscore'
+      React: 'react'
   ]
 
   resolve:
