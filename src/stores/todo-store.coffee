@@ -7,6 +7,8 @@ assign = require 'object-assign'
 
 CHANGE_EVENT = 'change'
 
+nextId = 4
+
 _todos = [
   id: 1
   text: 'foo'
@@ -17,6 +19,12 @@ _todos = [
   id: 3
   text: 'baz'
 ]
+
+create = (text) ->
+
+  _todos.push
+    id: nextId++
+    text: text
 
 destroy = (id) ->
   _todos = _.reject _todos, (todo) -> todo.id is id
@@ -35,11 +43,14 @@ TodoStore = assign {}, EventEmitter.prototype,
     @removeListener CHANGE_EVENT, callback
 
 Dispatcher.register (payload) ->
-  console.warn "TodoStore handling ", payload
 
   action = payload.action
 
   switch action.actionType
+
+    when TodoConstants.TODO_CREATE
+      create action.text
+
     when TodoConstants.TODO_DESTROY
       destroy action.id
 

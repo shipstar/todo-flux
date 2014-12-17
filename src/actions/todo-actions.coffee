@@ -3,6 +3,12 @@ TodoConstants = require 'app/constants/todo-constants'
 
 module.exports =
 
+  create: (text) ->
+
+    Dispatcher.handleViewAction
+      actionType: TodoConstants.TODO_CREATE
+      text: text
+
   destroy: (id) ->
 
     Dispatcher.handleViewAction

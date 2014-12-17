@@ -1,5 +1,6 @@
 TodoStore = require 'app/stores/todo-store'
 
+NewTodo = require './new-todo'
 TodoList = require './todo-list'
 
 getStoreState = ->
@@ -22,6 +23,7 @@ App = React.createClass
 
     `<div>
       <h1>Todo List</h1>
+      <NewTodo />
       <TodoList todos={this.state.todos} />
     </div>`
 
